@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const annonces = require('../models/add'); 
-const { isAuthenticated, isAdmin } = require('../middleware/authentication');
+const annonces = require('../../models/add'); 
+const { isAuthenticated, isAdmin } = require('../../middleware/authentication');
 
 // Route pour afficher les annonces avec bouton de suppression
 router.get('/api/annonces', async (req, res) => {

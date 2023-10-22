@@ -7,6 +7,10 @@ const passport = require('passport');
 const secret = require('./config/generekey'); 
 var createError = require('http-errors');
 const bodyParser = require('body-parser');
+const router = express.Router();
+
+
+
 const adminMiddleware = require('./middleware/authentication');
 // Importez Passport et le fichier de configuration
 require('./config/passport-config'); // Assurez-vous d'importer correctement le fichier de configuration
@@ -23,8 +27,10 @@ const supprimerAnnonceRouter = require('./routes/supprimerAnnonce');
 const modifierAnnonceRouter = require('./routes/modifierAnnonce');
 const questionReponseRouter = require('./routes/questionReponse');
 
-const annoncesAdminApiRouter = require('./routes/annoncesAdminApi');
-const detailAnnonceApiRouter = require('./routes/detailAnnonceApi');
+const annoncesAdminApiRouter = require('./routes/api/annoncesAdminApi');
+const detailAnnonceApiRouter = require('./routes/api/detailAnnonceApi');
+
+const apiDocsRouter = require('./routes/apiDocs');
 
 //require("dotenv").config();
 var app = express();
@@ -96,8 +102,10 @@ app.use('', questionReponseRouter);
 app.use('', annoncesAdminApiRouter)
 app.use('', detailAnnonceApiRouter)
 
-// Middleware pour déterminer si l'utilisateur est connecté et/ou est admin
+// Routes Swagger
+app.use('', apiDocsRouter)
 
+// Middleware pour déterminer si l'utilisateur est connecté et/ou est admin
 
 // Gestion des erreurs 404 et 500
 app.use(function (req, res, next) {

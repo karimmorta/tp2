@@ -25,6 +25,8 @@
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
     "pug": "^3.0.2",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.0",
     "test": "^3.3.0"
   },
   "devDependencies": {
