@@ -1,0 +1,17 @@
+function generateSecretKey(length) {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let secretKey = '';
+  
+    for (let i = 0; i < length; i++) {
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      secretKey += characters.charAt(randomIndex);
+    }
+  
+    return secretKey;
+  }
+
+  module.exports = {
+    generateSecretKey
+  }
+
+  

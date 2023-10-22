@@ -1,0 +1,78 @@
+<%- include('header') %>
+
+<section class="container my-5">
+    <h1 class="text-primary text-center my-5">Modifier l'Annonce</h1>
+
+    <form method="POST" action="/modifierAnnonce/<%= annonce._id %>" enctype="multipart/form-data"> 
+        
+    
+       
+        <div class="form-group">
+            <label for="titre">Titre</label>
+            <input type="text" class="form-control" id="titre" name="titre" value="<%= annonce.titre %>" required>
+        </div>
+
+        <div class="form-group">
+            <label for="type">Type</label>
+            <select class="form-control" id="type" name="type" required>
+                <option value="Location" <%= annonce.type === "Location" ? "selected" : "" %>>Location</option>
+                <option value="Vendre" <%= annonce.type === "Vendre" ? "selected" : "" %>>Vendre</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="statusPublication">Statut de Publication</label>
+            <select class="form-control" id="statusPublication" name="statusPublication" required>
+                <option value="publie" <%= annonce.statusPublication === "publie" ? "selected" : "" %>>Publié</option>
+                <option value="nonpublie" <%= annonce.statusPublication === "nonpublie" ? "selected" : "" %>>Non publié</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="statusBien">Statut du Bien</label>
+            <select class="form-control" id="statusBien" name="statusBien" required>
+                <option value="disponible" <%= annonce.statusBien === "disponible" ? "selected" : "" %>>Disponible</option>
+                <option value="non_disponible" <%= annonce.statusBien === "non_disponible" ? "selected" : "" %>>Non Disponible</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea class="form-control" id="description" name="description" required><%= annonce.description %></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="prix">Prix</label>
+            <input type="number" class="form-control" id="prix" name="prix" value="<%= annonce.prix %>" required>
+        </div>
+        <div class="form-group">
+            <label for="dateAnnonce">Date de l'Annonce</label>
+           <input type="date" class="form-control" id="dateAnnonce" name="dateAnnonce" value="<%= annonce.dateAnnonce?.toISOString().substring(0,10) %>">
+        </div>
+        
+        
+        <div class="form-group">
+            <label for="newPhotos">Ajouter de nouvelles images</label>
+            <input type="file" class="form-control-file" id="newPhotos" name="newPhotos" multiple required>
+        </div>
+
+        <% annonce?.photo?.forEach(function(image, index) { %>
+        
+            <div class="form-check">
+                <img src="<%= image.url %>" width="200" />
+                <input class="form-check-input" type="checkbox" id="image<%= index %>" name="imageIdsToDelete[<%= index %>]" value="<%= image._id %>">
+                
+                <!-- <input class="form-check-input" type="checkbox" id="image<%= index %>" name="imageToDelete[]"> -->
+                <label class="form-check-label" for="image<%= index %>">Supprimer cette image</label>
+            </div>
+        <% }); %> 
+
+        <button type="submit" class="btn btn-primary">Enregistrer les modifications</button>
+    </form>
+</section>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<%- include('footer') %>

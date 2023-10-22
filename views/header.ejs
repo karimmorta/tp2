@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AGENCE</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="stylesheets/style.css"> <!-- Lien vers votre fichier CSS personnalisé -->
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">Agence Immobilière </a>
+            <!-- Liens de navigation -->
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Accueil</a>
+                </li>
+                                </li>
+                    <li class="nav-item">
+      <a class="nav-link" href="#">Contact</a>
+    </li>
+                <% if(admin) {%>
+                <li class="nav-item">
+                    <!-- Liste déroulante -->
+                    <div class="dropdown">
+                        <a class=" nav-link dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Annonces
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            
+                            <a class="dropdown-item" href="rendueAnnonce">Ajouter une annonce</a>
+                            <a class="dropdown-item" href="/annoncesAdmin">Supprimer une annonce</a>
+                            <a class="dropdown-item" href="/annoncesAdmin">Modifier une annonce</a>
+                         
+                        </div>
+                    </div>
+
+                <%}%>
+                <!-- Fin de la liste déroulante -->
+                
+                </li>
+               <ul class="navbar-nav ml-auto">
+  <% if (role === 'admin' || role === 'user') { %>
+    <li class="nav-item">
+      <a href="/logout" class="nav-link">Déconnexion</a>
+    </li>
+  <% } else { %>
+    <li class="nav-item">
+      <a class="nav-link" href="/login">Connexion</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/register">Inscription</a>
+    </li>
+  <% } %>
+</ul>
+
+        </div>
+    </nav>

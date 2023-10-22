@@ -1,0 +1,52 @@
+<%- include('header') %>
+
+<section class="container  <%= lesAnnonces.length === 0 ? 'empty-announcements' : '' %>">
+    
+    <h1 class="text-primary text-center my-5">Nos Annonces Immobilières</h1>
+    
+    <% if (lesAnnonces.length === 0) { %>
+        <!-- Si aucune annonce n'est disponible, afficher un message -->
+        <p class="text-muted">Malheureusement, pour le moment, nous n'avons plus d'annonce.</p>
+    <% } else { %>
+        <div class="row">
+            <!-- Exemple d'annonce -->
+            <% lesAnnonces.forEach(function(annonce) { %>
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <span class="badge badge-top-right"><%= annonce.type %></span>                  
+                    <div id="carousel<%= annonce._id %>" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner">
+                            <% annonce.photo.forEach(function(image, index) { %>
+                                <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
+                                    <img src="<%= image.url %>" alt="<%= image.nomFichier %>" class="d-block w-100 custom-image">
+                                </div>
+                            <% }); %>
+                        </div>
+                        <a class="carousel-control-prev" href="#carousel<%= annonce._id %>" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Précédent</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carousel<%= annonce._id %>" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Suivant</span>
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <!-- Le type est maintenant affiché en haut à droite de l'image -->
+                        <h5><%= annonce.titre %></h5>
+                        <p>Prix: <%= annonce.prix %></p>
+                        <p>Description: <%= annonce.description.substring(0, 100) %>...</p>
+                        <a href="detailAnnonce/<%= annonce._id %>" class="btn btn-primary">En savoir plus</a>
+                    </div>
+                </div>
+            </div>
+            <% }); %>
+        </div>
+    <% } %>
+</section>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<%- include('footer') %>

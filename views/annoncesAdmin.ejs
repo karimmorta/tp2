@@ -1,0 +1,32 @@
+<%- include('header') %>
+
+<section class="container text-center my-5">
+    <h1 class="text-primary text-center my-5">Annonces Admin</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Titre</th>
+                <th>Prix</th>
+                <th>Description</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% annonces.forEach(function(annonce) { %>
+                <tr>
+                    <td><%= annonce.titre %></td>
+                    <td><%= annonce.prix %></td>
+                    <td><%= annonce.description.substring(0, 100) %>...</td>
+                    <td>
+                        <a href="/supprimerAnnonce/<%= annonce._id %>" class="btn btn-danger">Supprimer</a>
+                        <a href="/modifierAnnonce/<%= annonce._id %>" class="btn btn-primary">Modifier</a>
+                    </td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</section>
+
+
+<%- include('footer') %>

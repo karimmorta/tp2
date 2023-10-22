@@ -1,0 +1,105 @@
+<%- include('header') %>
+
+<section class="container my-5">
+<div class="container">
+    <h1 class="text-center">Détails de l'Annonce</h2>
+    <h2><%= annonce.titre %></h2>
+    <p>Type: <%= annonce.type %></p>
+    <p>Status de Publication: <%= annonce.statusPublication %></p>
+    <p>Status du Bien: <%= annonce.statusBien %></p>
+    <p>Description: <%= annonce.description %></p>
+    <p>Prix: <%= annonce.prix %></p>
+    <p>Date disponibilité: <%= annonce.dateAnnonce %></p>
+    
+    <h3>Images</h3>
+    <div id="carouselImages" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner">
+        <% annonce.photo.forEach(function(image, index) { %>
+          <div class="carousel-item <%= index === 0 ? 'active' : '' %>">
+            <img src="<%= image.url %>" alt="<%= image.nomFichier %>" class="d-block w-100">
+          </div>
+        <% }); %>
+      </div>
+      <a class="carousel-control-prev" href="#carouselImages" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Précédent</span>
+      </a>
+      <a class="carousel-control-next" href="#carouselImages" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Suivant</span>
+      </a>
+    </div>
+  </div>
+<br>
+
+<% if (role === "user") { %>
+<% if (questionResponseDetails && questionResponseDetails.questionAllowed === true ) { %>
+
+<div class="visible">
+<button id="questionAskFormActivator" onclick="onClickSendMessage()" type="button" class="btn btn-primary">
+  Envoyer un message
+</button>
+</div>
+<% } %>
+
+
+
+<div id="questionAskFormBox" class="hidden" >
+<form  method="POST" action="/question-response/ask/<%= annonce._id %>">
+  <div>
+    <label for="name">Nom</label>
+    <input type="text" class="form-control" id="name" name="name" required>
+  </div>
+  <div>
+    <label for="firstName">Prénom</label>
+    <input type="text" class="form-control" id="firstName" name="firstName" required>
+  </div>
+  <div>
+    <label for="questionSentence">Message</label>
+    <textarea class="form-control" id="questionSentence" name="questionSentence" required></textarea>
+  </div>
+  <button type="submit" class="btn btn-primary">Envoyer</button>
+</form>
+</div>
+<% } %>
+<% questionResponseDetails?.items?.forEach(function(item, index) { %>
+  <div class="card">
+    <div class="card-body">
+      <h3>Question: <b><%= item.questionSentence %></b></h3>
+      <% if (role == "admin") { %>
+        <% if (item?.responseSentence) { %>
+         
+        <% } else { %>
+          <form id="questionAnswerFormBox" method="POST" action="/question-response/answer/<%= item._id %>">
+            <div>
+              <label for="answer">Répondre:</label>
+              <input type="text" class="form-control" id="answer" name="answer" required>
+            </div>
+          </form>
+        <% } %>
+      <% } %>
+      <h3>Réponse de l'admin: <b><%= item.responseSentence %></b></h3>
+    </div>
+  </div>
+<% }) %>
+
+
+
+</section>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+const onClickSendMessage = ()=> {
+const questionAskFormElement = document.getElementById("questionAskFormBox");
+const questionAskFormActivator = document.getElementById("questionAskFormActivator");
+questionAskFormActivator.classList.remove('visible');
+questionAskFormActivator.classList.add('hidden');
+
+questionAskFormElement.classList.remove('hidden');
+questionAskFormElement.classList.add('visible');
+}
+</script>
+
